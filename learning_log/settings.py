@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'learning_logs',
     'users',
     # 第三方应用程序
-    #'bootstrap4',
+    'django_bootstrap5',
     #系统程序
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,4 +128,30 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'learning_logs:index'
+
+#LOGIN_URL = 'users:login'
+
+# Platform.sh settings.
+from platformshconfig import Config
+config = Config()
+if config.is_valid_platform():
+    ALLOWED_HOSTS.append('.platformsh.site')
+    
+    if config.appDir:
+        STATIC_ROOT = Path(config.appDir) / 'static'
+    if config.projectEntropy:
+        SECRET_KEY = config.projectEntropy
+    
+    if not config.in_build():
+        db_settings = config.credentials('database')
+        DATABASES = {
+            'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': db_settings['path'],
+            'USER': db_settings['username'],
+            'PASSWORD': db_settings['password'],
+            'HOST': db_settings['host'],
+            'PORT': db_settings['port'],
+            },
+        }
