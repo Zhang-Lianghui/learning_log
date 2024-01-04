@@ -1,12 +1,12 @@
 {% extends "learning_logs/base.html" %}
 {% block content %}
-    <p><a href="{% url 'learning_logs:topic' topic.id %}">Back to {{ topic }}</a></p>
-    <p>Add a new entry in {{ topic }}:</p>
+    <p><a href="{% url 'learning_logs:topic' topic.id %}">回到 {{ topic }}</a></p>
+    <p>为 {{ topic }} 增加新条目</p>
     <form action="{% url 'learning_logs:new_entry' topic.id %}"
     method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name='submit'>Add entry</button>
-    <button type="reset">Reset input</button>
+    <button name='submit'>添加条目</button>
+    <button type="reset">清空输入</button>
     </form>
 {% endblock content %}

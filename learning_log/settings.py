@@ -130,7 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'learning_logs:index'
 
-#LOGIN_URL = 'users:login'
+LOGIN_URL = 'users:login'
 
 # Platform.sh settings.
 from platformshconfig import Config

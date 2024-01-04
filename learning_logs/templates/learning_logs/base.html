@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Learning Log</title>
+    <title>学习日志</title>
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
-                Learning Log</a>
+                学习日志</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,24 +25,24 @@
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'learning_logs:topics' %}">
-                            Topics</a>
+                            主题</a>
                     </li>
                 </ul> <!-- End of links on left side of navbar -->
                 <!-- Account-related links -->
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <span class="navbar-text me-2">Hello, {{ user.username }}.
+                        <span class="navbar-text me-2" id="greeting">你好， {{ user.username }}.
                         </span>
                     </li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'users:register' %}">
-                            Register</a>
+                            注册</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'users:login' %}">
-                            Log in</a>
+                            登录</a>
                     </li>
                     {% endif %}
                 </ul> <!-- End of account-related links -->
@@ -51,7 +51,7 @@
                 <form action="{% url 'users:logout' %}" method='post'>
                     {% csrf_token %}
                     <button name='submit' class='btn btn-outline-secondary btn-sm'>
-                        Log out</button>
+                        注销</button>
                 </form>
                 {% endif %}
 
@@ -68,6 +68,23 @@
             {% block content %}{% endblock content %}
         </div>
     </main>
+
+    <script>
+        // 获取当前小时
+        var currentHour = new Date().getHours();
+
+        // 获取显示问候语的元素
+        var greetingElement = document.getElementById('greeting');
+
+        // 根据时间更改问候语
+        if (currentHour >= 5 && currentHour < 12) {
+            greetingElement.textContent = '早上好，' + '{{ user.username }}';
+        } else if (currentHour >= 12 && currentHour < 18) {
+            greetingElement.textContent = '下午好，' + '{{ user.username }}';
+        } else {
+            greetingElement.textContent = '晚上好，' + '{{ user.username }}';
+        }
+    </script>
 
 </body>
 </html>

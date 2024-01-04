@@ -1,14 +1,14 @@
 {% extends "learning_logs/base.html" %}
 {% block content %}
 
-    <p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
+    <p><a href="{% url 'learning_logs:topic' topic.id %}">返回{{ topic }}</a></p>
 
-    <p>Edit entry:</p>
+    <p>修改{{ topic }}主题的条目:</p>
     <form action="{% url 'learning_logs:edit_entry' entry.id %}"
     method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">Save changes</button>
-    <button type="reset">Reset</button>
+    <button name="submit">保存更改</button>
+    <button type="reset">放弃修改</button>
     </form>
 {% endblock content %}
