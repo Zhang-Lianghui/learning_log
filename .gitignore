@@ -1,0 +1,6 @@
+ll_env/
+
+#python运行文件
+__pycache__/
+
+*.sqlite3
