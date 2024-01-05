@@ -14,9 +14,9 @@ def register(request):
 
         if form.is_valid():
             new_user = form.save()
-        # 让用户自动登录，定向到主页
-        login(request, new_user)
-        return redirect('learning_logs:index')
+            # 让用户自动登录，定向到主页
+            login(request, new_user)
+            return redirect('learning_logs:index')
     
     # 显示空表单或指出表单无效
     context = {'form': form}
